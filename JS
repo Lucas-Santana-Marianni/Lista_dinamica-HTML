@@ -1,0 +1,44 @@
+ const campo = document.querySelector("#campo");
+    const botao = document.querySelector("#adicionar");
+    const lista = document.querySelector("#lista");
+
+    botao.addEventListener("click", function() {
+      const texto = campo.value.trim();
+
+      if (texto !== "") {
+        const item = document.createElement("li");
+
+        // Texto dentro de um span
+        const span = document.createElement("span");
+        span.textContent = texto;
+
+        // Botão editar
+        const btnEditar = document.createElement("button");
+        btnEditar.textContent = "✏️";
+        btnEditar.className = "editar";
+        btnEditar.addEventListener("click", function() {
+          const novoTexto = prompt("Edite o item:", span.textContent);
+          if (novoTexto !== null && novoTexto.trim() !== "") {
+            span.textContent = novoTexto.trim();
+          }
+        });
+
+        // Botão excluir
+        const btnExcluir = document.createElement("button");
+        btnExcluir.textContent = "❌";
+        btnExcluir.className = "excluir";
+        btnExcluir.addEventListener("click", function() {
+          lista.removeChild(item);
+        });
+
+        // Montar item
+        item.appendChild(span);
+        item.appendChild(btnEditar);
+        item.appendChild(btnExcluir);
+
+        lista.appendChild(item);
+
+        campo.value = "";
+        campo.focus();
+      }
+    });
